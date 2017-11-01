@@ -10,7 +10,14 @@ $(document).ready(function () {
         return false
       };
 
-      var reg_city_state =
+
+      var reg_state = /\b([A-Z]{2})\b/
+      var state = $("input[name='state']").val()
+      if (!state.match(reg_state)) {
+        return false
+      }
+
+      return true
     };
 
     if (validation()) {
