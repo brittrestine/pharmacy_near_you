@@ -4,29 +4,33 @@
 
     <link rel="stylesheet" href="application.css">
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="application.js"></script>
+
     <title>Pharmacy Near You</title>
 </head>
 <body>
     <div class="main">
-      <form method="post" action="/find">
+      <form method="post" action="http://www.example.com/dummy/post/endpoint">
         <label for="title-input">First Name:</label>
-        <input id="title-input" name="first_name" type="text">
+        <input id="title-input" name="first_name" type="text" required>
         <br>
 
         <label for="title-input">Last Name:</label>
-        <input id="title-input" name="last_name" type="text">
+        <input id="title-input" name="last_name" type="text" required>
         <br>
 
         <label for="title-input">Street Address:</label>
-        <input id="title-input" name="street_address" type="text">
+        <input id="title-input" name="street_address" type="text" required >
         <br>
 
         <label for="title-input">City:</label>
-        <input id="title-input" name="City" type="text">
+        <input id="title-input" name="city" type="text" required>
         <br>
 
         <label for="title-input">State:</label>
-        <input id="title-input" name="State" type="text">
+        <input id="title-input" name="state" type="text">
         <br>
 
         <label for="title-input">Zip Code:</label>
