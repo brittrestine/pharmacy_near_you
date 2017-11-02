@@ -1,79 +1,89 @@
  var map;
  var geocoder;
-// var service;
-// var infowindow;
-
-// function initMap() {
-//   var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
-
-//   return new google.maps.Map(document.getElementById('map'), {
-//       center: pyrmont,
-//       zoom: 14
-//     });
-
-//   var request = {
-//     location: pyrmont,
-//     radius: '500',
-//     type: ['pharmacy']
-//   };
-
-//   service = new google.maps.places.PlacesService(map);
-//   service.nearbySearch(request, callback);
-// }
-
-// function callback(results, status) {
-//   if (status == google.maps.places.PlacesServiceStatus.OK) {
-//     for (var i = 0; i < results.length; i++) {
-//       var place = results[i];
-//       createMarker(results[i]);
-//     }
-//   }
-// }
-
-//  function initMap() {
-//   return new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: 40.267, lng: -97.743},
-//     zoom: 7,
-//     radius: 500
-//   })
-//    var marker = new google.maps.Marker({
-//           position: {lat: 40.267, lng: -97.743},
-//           map: map
-//         });
-// };
 
 function initMap() {
   geocoder = new google.maps.Geocoder();
-  //Default setup
-  var latlng = new google.maps.LatLng(-34.397, 150.644);
+  var latlng = new google.maps.LatLng(37.422, -122.084058);
   var myOptions = {
-    zoom: 8,
+    zoom: 10,
     center: latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
-  return new google.maps.Map(document.getElementById("map"), myOptions);
+  map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+  var request = {
+    location: latlng,
+    radius: 16090,
+    types: ['pharmacy']
+  };
+
+  var service = new google.maps.places.PlacesService(map)
+
+  service.nearbySearch(request, callback);
+
+  // return new google.maps.Map(document.getElementById("map"), myOptions);
 }
 
+function codeAddress() {
+  var address = document.getElementById("zip").value;
 
- function codeAddress(map) {
-    var address = document.getElementById("zip").value;
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      console.log(results)
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+
+  var request = {
+      location: results[0].geometry.location,
+      radius: 16090,
+      types: ['pharmacy']
+    };
+
+    var service = new google.maps.places.PlacesService(map)
+
+    service.nearbySearch(request, callback);
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
+}
+
+// this is the right codeaddress
+// function codeAddress(map) {
+//   var address = document.getElementById("zip").value;
+
+//   geocoder.geocode( { 'address': address}, function(results, status) {
+//     if (status == google.maps.GeocoderStatus.OK) {
+//       map.setCenter(results[0].geometry.location);
+//       var marker = new google.maps.Marker({
+//         map: map,
+//         position: results[0].geometry.location,
+//         types: ['pharmacy']
+//       });
+//     } else {
+//       alert("Geocode was not successful for the following reason: " + status);
+//     }
+//   });
+// }
+
+function callback(results, status) {
+
+  if(status == google.maps.places.PlacesServiceStatus.OK){
+    for (var i = 0; i < results.length; i++){
+        createMarker(results[i])
+    }
   }
+}
+
+function createMarker(place) {
+  map.setCenter(place.geometry.location);
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  })
+}
 
 $(document).ready(function () {
    $('form').submit(function(e){
     e.preventDefault();
+
     var form = $(this);
 
     function validation(){
@@ -99,8 +109,8 @@ $(document).ready(function () {
         data: form.serialize()
       })
       .fail(function(response){
-        map = initMap()
-        locate = codeAddress(map);
+        // map = initMap()
+        locate = codeAddress();
         console.log(response)
         $(".main").hide();
         $("#map").append(locate);

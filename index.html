@@ -4,8 +4,14 @@
 
     <link rel="stylesheet" href="application.css">
 
+<!--      <script async defer
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94HO-j6QaknFmLsYsAqwXt9yWqr1HKqI&callback=initMap"></script> -->
+
      <script async defer
-     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94HO-j6QaknFmLsYsAqwXt9yWqr1HKqI&callback=initMap"></script>
+     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB94HO-j6QaknFmLsYsAqwXt9yWqr1HKqI&callback=initMap"></script>
+
+  <!--   <script async defer
+     src="https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant+applebee&key=AIzaSyB94HO-j6QaknFmLsYsAqwXt9yWqr1HKqI&callback=initMap"></script> -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -17,23 +23,23 @@
     <div class="main">
       <form method="post" action="http://www.example.com/dummy/post/endpoint">
         <label for="title-input">First Name:</label>
-        <input id="title-input" name="first_name" type="text" required>
+        <input id="first_name" name="first_name" type="text" required>
         <br>
 
         <label for="title-input">Last Name:</label>
-        <input id="title-input" name="last_name" type="text" required>
+        <input id="last_name" name="last_name" type="text" required>
         <br>
 
         <label for="title-input">Street Address:</label>
-        <input id="title-input" name="street_address" type="text" required >
+        <input id="street_address" name="street_address" type="text" required >
         <br>
 
         <label for="title-input">City:</label>
-        <input id="title-input" name="city" type="text" required>
+        <input id="city" name="city" type="text" required>
         <br>
 
         <label for="title-input">State:</label>
-        <input id="title-input" name="state" type="text">
+        <input id="state" name="state" type="text">
         <br>
 
         <label for="title-input">Zip Code:</label>
@@ -45,7 +51,7 @@
       </form>
     </div>
 
-    <div id="map"></div>
+    <div id="map" class="maps"></div>
 
 </body>
 </html>
