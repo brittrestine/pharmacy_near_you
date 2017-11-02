@@ -1,7 +1,7 @@
  var map;
  var geocoder;
 
-// I would implememt tests in rspec here to make sure the initial latlng is correct
+//I would implememt tests in rspec here to make sure the initial latlng is correct.
 function initMap() {
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(37.422, -122.084058);
@@ -20,7 +20,7 @@ function initMap() {
   service.nearbySearch(request, callback);
 }
 
-//I would implement testing here to make sure the zip code was correct, the status of Geocoder was 'OK' and the resultes are being pulled from the right spot in the results.
+//I would implement testing here to make sure the zip code was correct, the status of Geocoder was 'OK' and the locations are being pulled from the right spot in the results.
 function codeAddress() {
   var address = document.getElementById("zip").value;
   geocoder.geocode( { 'address': address}, function(results, status) {
@@ -38,7 +38,7 @@ function codeAddress() {
   });
 }
 
-// I would implement test in jasmine for this function to make sure it is going through each item in the results
+//I would implement test in jasmine for this function to make sure it is going through each item in the results.
 function callback(results, status) {
   if(status == google.maps.places.PlacesServiceStatus.OK){
     for (var i = 0; i < results.length; i++){
@@ -47,7 +47,7 @@ function callback(results, status) {
   }
 }
 
-// I would implement test in jasmine for this function to make sure it is looking in the right area for the location of each result
+//I would implement test in jasmine for this function to make sure it is looking in the right area for the location of each result.
 function createMarker(place) {
   map.setCenter(place.geometry.location);
   var marker = new google.maps.Marker({
@@ -62,7 +62,7 @@ $(document).ready(function () {
 
     var form = $(this);
 
-    // I would test here to make sure reg_zip and reg_state is working correctly and that this function returns true if validation is good
+    //I would test here to make sure reg_zip and reg_state are working correctly and that this function returns true if validation is good.
     function validation(){
       var reg_zip = /^\d+$/;
       var zip = $("input[name='zip']").val();
@@ -79,7 +79,7 @@ $(document).ready(function () {
       return true
     };
 
-    //I would test to make sure the status of the ajax request comes back
+    //I would test to make sure the status of the ajax request comes back.
     if (validation()) {
       $.ajax({
         url: form.attr("action"),
