@@ -30,26 +30,34 @@
 //   }
 // }
 
- function initMap() {
-  return new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -25.363, lng: 131.044},
+//  function initMap() {
+//   return new google.maps.Map(document.getElementById('map'), {
+//     center: {lat: 40.267, lng: -97.743},
+//     zoom: 7,
+//     radius: 500
+//   })
+//    var marker = new google.maps.Marker({
+//           position: {lat: 40.267, lng: -97.743},
+//           map: map
+//         });
+// };
+
+function initMap() {
+  geocoder = new google.maps.Geocoder();
+  //Default setup
+  var latlng = new google.maps.LatLng(-34.397, 150.644);
+  var myOptions = {
     zoom: 8,
-    radius: 500,
-  })
-};
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  return new google.maps.Map(document.getElementById("map"), myOptions);
+}
 
-// function initMap() {
-//     geocoder = new google.maps.Geocoder();
-//     var latlng = new google.maps.LatLng(-34.397, 150.644);
-//     var mapOptions = {
-//       zoom: 8,
-//       center: latlng
-//     }
-//     map = new google.maps.Map(document.getElementById('map'), mapOptions);
-//   }
 
- function codeAddress(zip) {
-    geocoder.geocode( { 'address': zip}, function(results, status) {
+ function codeAddress(map) {
+    var address = document.getElementById("zip").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
       console.log(results)
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
@@ -91,13 +99,11 @@ $(document).ready(function () {
         data: form.serialize()
       })
       .fail(function(response){
-        // imap = initMap();
         map = initMap()
-        var zip = $("input[name='zip']").val();
-        // map = codeAddress(zip);
+        locate = codeAddress(map);
         console.log(response)
         $(".main").hide();
-        $("#map").append(map);
+        $("#map").append(locate);
       })
     } else {
       alert("Formatted Incorrectly");
